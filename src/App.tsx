@@ -1,25 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ChakraProvider, useDisclosure } from '@chakra-ui/react';
+import theme from './definitions/chakra/theme';
+import Layout from './Layout';
+import ConnectButton from './components/ConnectButton';
+import AccountModal from './components/AccountModal';
+// import { StyledThemeProvider } from './definitions/styled-components';
 
-function App() {
+function App(): JSX.Element {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider theme={theme}>
+      <Layout>
+        <ConnectButton handleOpenModal={onOpen}></ConnectButton>
+        <AccountModal isOpen={isOpen} onClose={onClose}></AccountModal>
+      </Layout>
+    </ChakraProvider>
   );
 }
 
